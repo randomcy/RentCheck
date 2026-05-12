@@ -2,159 +2,498 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Progress } from "@/components/ui/progress";
-import { AttributeCard } from "@/components/AttributeCard";
-import { generateQuestions, buildPreferenceResult } from "@/lib/conjoint";
-import { usePreferenceStore } from "@/store/preference";
-import { AnimatePresence, motion } from "framer-motion";
-import { Brain, RefreshCw, ChevronLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import conjointConfig from "../../../data/conjoint-config.json";
-import type { ConjointConfig, QuizQuestion } from "@/types";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Check,
+  RefreshCw,
+  Sparkles,
+  AlertCircle,
+} from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  ATTRIBUTES_V2,
+  MIN_SELECTED,
+  MAX_SELECTED,
+  findAttr,
+  type Profile,
+  type ConjointAttribute,
+} from "@/lib/conjoint-v2/attributes";
+import { generateTasks, type ChoiceTask } from "@/lib/conjoint-v2/task-generator";
+import {
+  buildDesignSpec,
+  fitMNL,
+  computePartWorths,
+  computeImportance,
+  computeWTP,
+  computeHoldoutAccuracy,
+  type ChoiceRecord,
+} from "@/lib/conjoint-v2/core";
+import { useConjointV2Store } from "@/store/conjointV2";
+import { usePreferenceStore } from "@/store/preference";
+import type { PreferenceResult, AttributeWeight } from "@/types";
 
-const TOTAL_QUESTIONS = 10;
+// ============================================================
+// Step 1：维度勾选 + 轻量 BYO（理想 level 选择）
+// ============================================================
+
+interface Step1Props {
+  selectedIds: Set<string>;
+  toggleSelect: (id: string) => void;
+  idealProfile: Profile;
+  setIdealLevel: (attrId: string, levelIdx: number) => void;
+  onNext: () => void;
+}
+
+function StepSelection({
+  selectedIds,
+  toggleSelect,
+  idealProfile,
+  setIdealLevel,
+  onNext,
+}: Step1Props) {
+  const canProceed = selectedIds.size >= MIN_SELECTED;
+
+  return (
+    <div>
+      <div className="mb-6">
+        <h2 className="text-2xl md:text-3xl font-bold mb-2">
+          先告诉我，你最在乎哪几件事
+        </h2>
+        <p className="text-muted-foreground text-sm md:text-base">
+          从下面 12 个维度里勾选 <span className="font-semibold text-foreground">{MIN_SELECTED}-{MAX_SELECTED} 个</span> 你最关心的，
+          并选出每个维度上你最理想的样子。我们会基于此为你定制 12 道选择题。
+        </p>
+      </div>
+
+      {/* 勾选进度 */}
+      <div className="mb-5 flex items-center justify-between text-sm">
+        <span className="text-muted-foreground">
+          已勾选{" "}
+          <span
+            className={`font-bold tabular-nums ${
+              selectedIds.size >= MIN_SELECTED && selectedIds.size <= MAX_SELECTED
+                ? "text-emerald-600"
+                : selectedIds.size > MAX_SELECTED
+                ? "text-amber-600"
+                : "text-muted-foreground"
+            }`}
+          >
+            {selectedIds.size}
+          </span>{" "}
+          / {MAX_SELECTED}
+        </span>
+        {selectedIds.size > MAX_SELECTED && (
+          <span className="inline-flex items-center gap-1 text-xs text-amber-700">
+            <AlertCircle className="h-3 w-3" />
+            最多 {MAX_SELECTED} 个，请取消一些
+          </span>
+        )}
+        {selectedIds.size < MIN_SELECTED && (
+          <span className="text-xs text-muted-foreground">
+            至少再选 {MIN_SELECTED - selectedIds.size} 个
+          </span>
+        )}
+      </div>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+        {ATTRIBUTES_V2.map((attr) => {
+          const selected = selectedIds.has(attr.id);
+          const idealLv = idealProfile[attr.id] ?? attr.levels.length - 1;
+          const disabled =
+            !selected && selectedIds.size >= MAX_SELECTED;
+
+          return (
+            <Card
+              key={attr.id}
+              className={`p-3.5 transition-all cursor-pointer relative ${
+                selected
+                  ? "border-brand-red bg-brand-red-pale/20 ring-1 ring-brand-red/40 shadow-sm"
+                  : disabled
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:border-brand-red/40 hover:bg-brand-red-pale/5"
+              }`}
+              onClick={() => !disabled && toggleSelect(attr.id)}
+            >
+              <div className="flex items-start gap-2.5 mb-2">
+                <div className="text-xl leading-none mt-0.5">{attr.icon}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-sm leading-tight">{attr.name}</div>
+                  <div className="text-[10px] text-muted-foreground mt-0.5 leading-snug">
+                    {attr.hint}
+                  </div>
+                </div>
+                <div
+                  className={`flex items-center justify-center w-4 h-4 rounded border-2 transition-colors shrink-0 mt-0.5 ${
+                    selected
+                      ? "bg-brand-red border-brand-red text-white"
+                      : "border-muted-foreground/30"
+                  }`}
+                >
+                  {selected && <Check className="h-2.5 w-2.5" strokeWidth={3} />}
+                </div>
+              </div>
+
+              {/* 轻量 BYO：勾选后展开"理想 level" */}
+              {selected && (
+                <div
+                  className="mt-2 pt-2 border-t border-brand-red/15"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="text-[10px] text-muted-foreground mb-1.5">
+                    你的理想是？
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {attr.levels.map((lv, idx) => {
+                      const active = idealLv === idx;
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => setIdealLevel(attr.id, idx)}
+                          className={`text-[10px] px-2 py-1 rounded-md transition-colors ${
+                            active
+                              ? "bg-brand-red text-white font-medium"
+                              : "bg-secondary/60 text-muted-foreground hover:bg-secondary"
+                          }`}
+                        >
+                          {lv.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </Card>
+          );
+        })}
+      </div>
+
+      <div className="flex justify-end">
+        <Button
+          size="lg"
+          disabled={!canProceed}
+          onClick={onNext}
+          className="min-w-[180px]"
+        >
+          开始答题
+          <ChevronRight className="h-4 w-4 ml-1" />
+        </Button>
+      </div>
+
+      <div className="mt-4 text-xs text-muted-foreground flex items-start gap-2 bg-secondary/30 rounded-lg p-3">
+        <Sparkles className="h-3.5 w-3.5 text-brand-red mt-0.5 shrink-0" />
+        <div className="leading-relaxed">
+          <strong className="text-foreground">为什么这么设计？</strong>
+          基于 ACBC（Sawtooth）思路，让你先勾选关心的维度可减少认知负荷、提升题目信噪比。
+          每个维度的"理想 level"将用来锚定题目生成，让出题更贴近你的真实场景。
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// Step 2：CBC 答题
+// ============================================================
+
+interface Step2Props {
+  attrs: ConjointAttribute[];
+  tasks: ChoiceTask[];
+  currentIdx: number;
+  onChoose: (altIdx: number) => void;
+  onRestart: () => void;
+}
+
+function StepChoice({
+  attrs,
+  tasks,
+  currentIdx,
+  onChoose,
+  onRestart,
+}: Step2Props) {
+  const task = tasks[currentIdx];
+  const progress = ((currentIdx + 1) / tasks.length) * 100;
+
+  if (!task) return null;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <span className="text-sm font-medium">
+          第 {currentIdx + 1} 题 / 共 {tasks.length} 题
+          {task.isHoldout && (
+            <span className="ml-2 text-[10px] text-muted-foreground italic">
+              （验证题，不告诉你哪些是 :) ）
+            </span>
+          )}
+        </span>
+        <Button variant="outline" size="sm" onClick={onRestart}>
+          <RefreshCw className="h-3.5 w-3.5" />
+          重测
+        </Button>
+      </div>
+      <Progress value={progress} className="mb-7" />
+
+      <p className="text-center text-sm text-muted-foreground mb-5">
+        下面 {task.alternatives.length} 套房里，你最想住哪一套？凭直觉选。
+      </p>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={task.taskId}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="grid md:grid-cols-3 gap-3 md:gap-4"
+        >
+          {task.alternatives.map((alt, altIdx) => (
+            <button
+              key={altIdx}
+              onClick={() => onChoose(altIdx)}
+              className="text-left bg-white rounded-2xl border border-border hover:border-brand-red hover:shadow-md transition-all p-4 group"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-semibold text-muted-foreground tracking-wide">
+                  选项 {String.fromCharCode(65 + altIdx)}
+                </span>
+                <div className="w-6 h-6 rounded-full bg-secondary/60 group-hover:bg-brand-red group-hover:text-white flex items-center justify-center text-[10px] font-bold transition-colors">
+                  {String.fromCharCode(65 + altIdx)}
+                </div>
+              </div>
+              <div className="space-y-2">
+                {attrs.map((attr) => {
+                  const levelIdx = alt[attr.id];
+                  const lv = attr.levels[levelIdx];
+                  return (
+                    <div
+                      key={attr.id}
+                      className="flex items-center justify-between gap-2 text-sm"
+                    >
+                      <span className="text-muted-foreground inline-flex items-center gap-1.5 min-w-0">
+                        <span className="text-base shrink-0">{attr.icon}</span>
+                        <span className="truncate">{attr.name}</span>
+                      </span>
+                      <span className="font-semibold text-foreground text-right">
+                        {lv.label}
+                        {lv.desc && (
+                          <span className="block text-[9px] text-muted-foreground font-normal">
+                            {lv.desc}
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mt-3 pt-3 border-t border-border/60 text-center text-xs text-brand-red font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                选这个 →
+              </div>
+            </button>
+          ))}
+        </motion.div>
+      </AnimatePresence>
+
+      <p className="text-center text-xs text-muted-foreground mt-6">
+        小贴士：没有"正确答案"，你的真实偏好就是最有价值的数据
+      </p>
+    </div>
+  );
+}
+
+// ============================================================
+// 主页面
+// ============================================================
 
 export default function QuizPage() {
   const router = useRouter();
-  const config = conjointConfig as ConjointConfig;
+  const { setResult } = useConjointV2Store();
+  const setLegacyResult = usePreferenceStore((s) => s.setResult);
 
-  const { setQuestions, addAnswer, setResult, reset, answers } =
-    usePreferenceStore();
+  const [step, setStep] = useState<"select" | "choice">("select");
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(
+    () => new Set(ATTRIBUTES_V2.filter((a) => a.defaultSelected).map((a) => a.id))
+  );
+  const [idealProfile, setIdealProfile] = useState<Profile>(() => {
+    // 默认每个维度的理想 = levels 的最后一项（即"好"的方向）
+    const p: Profile = {};
+    for (const attr of ATTRIBUTES_V2) {
+      p[attr.id] = attr.levels.length - 1;
+    }
+    return p;
+  });
 
-  const [questions, setLocalQuestions] = useState<QuizQuestion[]>([]);
+  const [tasks, setTasks] = useState<ChoiceTask[]>([]);
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [, setRerenderTick] = useState(0);
+  const [choices, setChoices] = useState<Record<number, number>>({});
 
-  // 首次加载生成题目
-  useEffect(() => {
-    const qs = generateQuestions(config, TOTAL_QUESTIONS);
-    setLocalQuestions(qs);
-    reset();
-    setQuestions(qs);
-    setCurrentIdx(0);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const currentQuestion = questions[currentIdx];
-  const progress = useMemo(
-    () => ((currentIdx + 1) / TOTAL_QUESTIONS) * 100,
-    [currentIdx]
+  const selectedAttrs = useMemo(
+    () => Array.from(selectedIds).map((id) => findAttr(id)!).filter(Boolean),
+    [selectedIds]
   );
 
-  function handleChoose(choice: "A" | "B") {
-    if (!currentQuestion) return;
-    addAnswer({
-      questionId: currentQuestion.id,
-      chosen: choice,
-      optionA: currentQuestion.optionA,
-      optionB: currentQuestion.optionB,
+  const toggleSelect = (id: string) => {
+    const next = new Set(selectedIds);
+    if (next.has(id)) next.delete(id);
+    else if (next.size < MAX_SELECTED) next.add(id);
+    setSelectedIds(next);
+  };
+
+  const setIdealLevel = (attrId: string, levelIdx: number) => {
+    setIdealProfile((p) => ({ ...p, [attrId]: levelIdx }));
+  };
+
+  const handleStartChoice = () => {
+    // 过滤 idealProfile，只保留勾选维度
+    const idealForSelected: Profile = {};
+    Array.from(selectedIds).forEach((id) => {
+      idealForSelected[id] = idealProfile[id];
+    });
+    const generated = generateTasks(selectedAttrs, {
+      idealProfile: idealForSelected,
+      nTasks: 10,
+      nHoldout: 2,
+      nAlts: 3,
+    });
+    setTasks(generated);
+    setCurrentIdx(0);
+    setChoices({});
+    setStep("choice");
+  };
+
+  const handleChoose = (altIdx: number) => {
+    const task = tasks[currentIdx];
+    const newChoices = { ...choices, [task.taskId]: altIdx };
+    setChoices(newChoices);
+
+    if (currentIdx + 1 < tasks.length) {
+      setCurrentIdx((i) => i + 1);
+      return;
+    }
+
+    // 全部答完 → 计算结果
+    const spec = buildDesignSpec(selectedAttrs);
+    const trainingRecords: ChoiceRecord[] = [];
+    const holdoutRecords: ChoiceRecord[] = [];
+    for (const t of tasks) {
+      const altsX = t.alternatives.map(spec.encode);
+      const chosen = newChoices[t.taskId] ?? 0;
+      const rec: ChoiceRecord = { taskId: t.taskId, altsX, chosen };
+      if (t.isHoldout) holdoutRecords.push(rec);
+      else trainingRecords.push(rec);
+    }
+
+    const fit = fitMNL(trainingRecords, spec.K, {
+      lambda: 1.0,
+      maxIter: 500,
+      lr: 0.05,
+    });
+    const pw = computePartWorths(fit.beta, spec);
+    const imp = computeImportance(pw);
+    const wtp = computeWTP(pw);
+    const acc = computeHoldoutAccuracy(fit.beta, holdoutRecords);
+
+    setResult({
+      selectedAttrIds: Array.from(selectedIds),
+      partWorths: pw,
+      importance: imp,
+      wtp,
+      holdout: acc,
+      beta: fit.beta,
+      loss: fit.loss,
+      converged: fit.converged,
+      idealProfile,
+      tasks,
+      choices: newChoices,
     });
 
-    if (currentIdx + 1 >= TOTAL_QUESTIONS) {
-      // 主 conjoint 计算完成 → 跳转到硬筛选页（隶属 binary filters）
-      const allAnswers = [
-        ...answers,
-        {
-          questionId: currentQuestion.id,
-          chosen: choice,
-          optionA: currentQuestion.optionA,
-          optionB: currentQuestion.optionB,
-        },
-      ];
-      const result = buildPreferenceResult(allAnswers, config);
-      setResult(result);
-      router.push("/quiz/filters");
-    } else {
-      setCurrentIdx((i) => i + 1);
-      setRerenderTick((t) => t + 1);
-    }
-  }
+    // 同步一份析跳脚到老 store，供社区页 MatchBanner 继续使用
+    // （映射 attr id 到老类型的 attributeId）
+    const legacyWeights: AttributeWeight[] = imp.map((i) => ({
+      attributeId: i.attrId,
+      name: i.attrName,
+      icon: findAttr(i.attrId)?.icon ?? "✨",
+      weight: i.importance,
+    }));
+    const sorted = [...legacyWeights].sort((a, b) => b.weight - a.weight);
+    const top1 = sorted[0];
+    const bottom1 = sorted[sorted.length - 1];
+    const legacy: PreferenceResult = {
+      weights: legacyWeights,
+      sortedWeights: sorted,
+      personalityTag: top1
+        ? `重 ${top1.name} 轻 ${bottom1.name}`
+        : "均衡型",
+      subTags: sorted.slice(0, 2).map((w) => w.name),
+      description: top1
+        ? `你最看重 ${top1.name}（${(top1.weight * 100).toFixed(0)}%），对 ${bottom1.name} 最为宽容。`
+        : "",
+      topAttributeId: top1?.attributeId ?? "",
+      topAttributeName: top1?.name ?? "",
+      bottomAttributeId: bottom1?.attributeId ?? "",
+      bottomAttributeName: bottom1?.name ?? "",
+      utilities: {},
+    };
+    setLegacyResult(legacy);
 
-  function handleRestart() {
-    const qs = generateQuestions(config, TOTAL_QUESTIONS);
-    setLocalQuestions(qs);
-    reset();
-    setQuestions(qs);
+    router.push("/result");
+  };
+
+  const handleRestart = () => {
+    setStep("select");
     setCurrentIdx(0);
-  }
+    setChoices({});
+    setTasks([]);
+  };
+
+  // 进入答题阶段时如果还没生成 tasks，回退到 select
+  useEffect(() => {
+    if (step === "choice" && tasks.length === 0) {
+      setStep("select");
+    }
+  }, [step, tasks.length]);
 
   return (
-    <div className="container py-10 md:py-14 max-w-4xl">
-      {/* 顶部导航 + 标题 */}
-      <div className="mb-8">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
-        >
-          <ChevronLeft className="h-4 w-4" />
-          返回首页
-        </Link>
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-red-deep mb-2">
-              <Brain className="h-3.5 w-3.5" />
-              场景 A · 偏好揭示引擎
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-              在两套房之间选一套
-            </h1>
-            <p className="mt-2 text-muted-foreground">
-              没有标准答案，凭直觉就好。我们会从你的选择里反推你的隐性偏好。
-            </p>
-          </div>
-          <Button variant="outline" size="sm" onClick={handleRestart}>
-            <RefreshCw className="h-3.5 w-3.5" />
-            重新开始
-          </Button>
+    <div className="container py-8 md:py-12 max-w-5xl">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
+      >
+        <ChevronLeft className="h-4 w-4" />
+        返回首页
+      </Link>
+
+      <div className="mb-6">
+        <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-red-deep mb-2">
+          <Sparkles className="h-3.5 w-3.5" />
+          租房偏好测试 · Conjoint Analysis
         </div>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+          12 道题，反推你的隐性偏好
+        </h1>
       </div>
 
-      {/* 进度条 */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-foreground">
-            第 {currentIdx + 1} 题 / 共 {TOTAL_QUESTIONS} 题
-          </span>
-          <span className="text-xs text-muted-foreground">
-            {Math.round(progress)}%
-          </span>
-        </div>
-        <Progress value={progress} />
-      </div>
-
-      {/* 题目卡片 */}
-      <AnimatePresence mode="wait">
-        {currentQuestion && (
-          <motion.div
-            key={currentQuestion.id}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-          >
-            <p className="text-center text-sm text-muted-foreground mb-6">
-              下面两套房，你更愿意住哪一套？
-            </p>
-            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-              <AttributeCard
-                label="A"
-                option={currentQuestion.optionA}
-                attributes={config.attributes}
-                onClick={() => handleChoose("A")}
-              />
-              <AttributeCard
-                label="B"
-                option={currentQuestion.optionB}
-                attributes={config.attributes}
-                onClick={() => handleChoose("B")}
-              />
-            </div>
-            <p className="text-center text-xs text-muted-foreground mt-6">
-              小贴士：每道题没有"标准答案"，你的真实偏好就是最有价值的数据
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {step === "select" ? (
+        <StepSelection
+          selectedIds={selectedIds}
+          toggleSelect={toggleSelect}
+          idealProfile={idealProfile}
+          setIdealLevel={setIdealLevel}
+          onNext={handleStartChoice}
+        />
+      ) : (
+        <StepChoice
+          attrs={selectedAttrs}
+          tasks={tasks}
+          currentIdx={currentIdx}
+          onChoose={handleChoose}
+          onRestart={handleRestart}
+        />
+      )}
     </div>
   );
 }
