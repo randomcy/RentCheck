@@ -164,7 +164,7 @@ function QuizResult() {
           完成 8 道偏好题，我们就能告诉你最在乎什么
         </p>
         <Button asChild size="lg">
-          <Link href="/quiz">开始人格测试</Link>
+          <Link href="/quiz">开始租房偏好测试</Link>
         </Button>
       </div>
     );

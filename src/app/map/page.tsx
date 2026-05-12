@@ -167,7 +167,7 @@ export default function MapPage() {
                   lat: p.location.lat,
                 })
               }
-              placeholder="搜小红书 / 字节跳动 / 你家小区…"
+              placeholder="搜公司 / 字节跳动 / 你家小区…"
             />
             <div className="mt-2.5 flex items-start gap-2 text-[11px] text-muted-foreground bg-secondary/40 rounded-lg p-2">
               <MapPin className="h-3 w-3 mt-0.5 text-emerald-600 shrink-0" />

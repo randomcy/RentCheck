@@ -56,7 +56,7 @@ export default function CommunityIndexPage() {
         <p className="text-muted-foreground">
           {pref
             ? `根据你的偏好画像「${pref.personalityTag}」，从 ${communities.length} 个小区中按匹配度排序`
-            : "做完人格测试后，这里将按你的偏好重新排序"}
+            : "做完租房偏好测试后，这里将按你的偏好重新排序"}
         </p>
       </div>
 
@@ -73,7 +73,7 @@ export default function CommunityIndexPage() {
                   让小区按你的偏好排序
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  2 分钟做完人格测试，AI 会给每个小区算"和你的匹配度"
+                  2 分钟做完租房偏好测试，AI 会给每个小区算"和你的匹配度"
                 </p>
               </div>
             </div>

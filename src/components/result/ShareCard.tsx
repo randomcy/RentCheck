@@ -11,7 +11,7 @@ interface Props {
 }
 
 /**
- * 9:16 分享海报卡（小红书友好尺寸）
+ * 9:16 分享海报卡
  * 用户截屏即可分享；样式专为竖屏视觉优化
  */
 export function ShareCard({ result }: Props) {
@@ -32,7 +32,7 @@ export function ShareCard({ result }: Props) {
           </div>
           <div className="text-left">
             <div className="font-bold text-sm">生成我的「租房人格」分享卡</div>
-            <div className="text-xs text-muted-foreground">9:16 竖版海报 · 截屏即可发小红书</div>
+            <div className="text-xs text-muted-foreground">9:16 竖版海报 · 截屏即可分享</div>
           </div>
         </div>
         {open ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
@@ -117,7 +117,7 @@ export function ShareCard({ result }: Props) {
 
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground">
               <Camera className="h-3.5 w-3.5" />
-              <span>截屏保存这张图，发到小红书 / 朋友圈，就能让朋友也来测</span>
+              <span>截屏保存这张图，发到朋友圈，就能让朋友也来测</span>
             </div>
           </div>
         </div>

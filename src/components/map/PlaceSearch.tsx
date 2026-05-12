@@ -2,7 +2,7 @@
 
 /**
  * 真实地点搜索框 —— 调用高德 AutoComplete + PlaceSearch
- * 用户输入"小红书"、"我家小区"、"建外 soho" 都能搜到真实经纬度
+ * 用户输入公司名 / 我家小区 / 建外 soho 都能搜到真实经纬度
  */
 import { useEffect, useRef, useState } from "react";
 import { loadAMap, prefetchAMap } from "@/lib/amap-loader";

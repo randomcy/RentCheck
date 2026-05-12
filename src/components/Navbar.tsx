@@ -20,7 +20,7 @@ export function Navbar() {
             href="/quiz"
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
-            人格测试
+            租房偏好测试
           </Link>
           <Link
             href="/map"

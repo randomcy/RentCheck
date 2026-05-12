@@ -1,7 +1,7 @@
 /**
  * 偏好 ↔ 小区匹配度算法
  *
- * 思路（面试要点）：
+ * 思路：
  * 1. Conjoint 给出 6 个【租房属性】的权重（price / roomType / commute / decoration / community / building）
  * 2. 小区有 6 个【居住体验子分】（noise / soundproof / property / safety / amenity / valueForMoney）
  * 3. 两者不是 1:1，需要建立映射关系：用户在意"装修"→意味着对"物业服务、隔音"敏感

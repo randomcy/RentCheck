@@ -78,7 +78,7 @@ export default function CommunityPage({ params }: { params: { id: string } }) {
               </div>
             </div>
             <Badge variant="soft" className="bg-white/95 text-brand-red-deep border-none shrink-0">
-              基于 {communityPosts.length} 条小红书
+              基于 {communityPosts.length} 条真实点评
             </Badge>
           </div>
         </div>
