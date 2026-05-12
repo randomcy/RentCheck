@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import AMapLoader from "@amap/amap-jsapi-loader";
+import { loadAMap } from "@/lib/amap-loader";
 import type {
   SubwayStation,
   Company,
@@ -17,10 +17,6 @@ interface CommuteMapProps {
   maxMinutes: number;
   onApartmentClick?: (apt: Apartment) => void;
   activeApartmentId?: string | null;
-  /** 可选：用户自己填的 高德 JSAPI key */
-  apiKey?: string;
-  /** 可选：用户自己填的 高德 安全密钥 */
-  securityCode?: string;
 }
 
 declare global {
@@ -37,8 +33,6 @@ export function CommuteMap({
   maxMinutes,
   onApartmentClick,
   activeApartmentId,
-  apiKey,
-  securityCode,
 }: CommuteMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
@@ -47,63 +41,52 @@ export function CommuteMap({
   const [mapReady, setMapReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // ===== 初始化地图（key 变化时重新初始化）=====
+  // ===== 初始化地图（只初始化一次）=====
   useEffect(() => {
     if (!containerRef.current) return;
-    const key = apiKey || process.env.NEXT_PUBLIC_AMAP_KEY;
-    const sec = securityCode || "";
-    if (!key) {
-      setError("请填入你的高德地图 JSAPI key");
-      setLoading(false);
-      return;
-    }
-
-    // 高德 2.0 必填安全密钥
-    (window as any)._AMapSecurityConfig = {
-      securityJsCode: sec,
-    };
-
-    // 如果之前加载过不同的 key，清掉旧的 AMap 全局
-    if ((window as any).AMap && mapRef.current) {
-      try { mapRef.current.destroy(); } catch {}
-      mapRef.current = null;
-    }
+    let cancelled = false;
 
     setLoading(true);
     setError(null);
-    (AMapLoader as any).reset?.();
-    AMapLoader.load({
-      key,
-      version: "2.0",
-      plugins: ["AMap.Scale", "AMap.ToolBar"],
-    })
+
+    loadAMap()
       .then((AMap) => {
-        const map = new AMap.Map(containerRef.current!, {
+        if (cancelled || !containerRef.current) return;
+        // 防止 Strict Mode 双 mount 时重复 new Map
+        if (mapRef.current) return;
+
+        const map = new AMap.Map(containerRef.current, {
           zoom: 11,
           center: [company.lng, company.lat],
           mapStyle: "amap://styles/whitesmoke",
           viewMode: "2D",
         });
         mapRef.current = map;
-        map.on("complete", () => setMapReady(true));
-        // 兜底：1.5s 内 complete 没触发也强制就绪（高德 2.0 偶有静默）
-        setTimeout(() => setMapReady(true), 1500);
+        map.on("complete", () => {
+          if (!cancelled) setMapReady(true);
+        });
+        // 兜底：1.5s 内 complete 没触发也强制就绪
+        setTimeout(() => {
+          if (!cancelled) setMapReady(true);
+        }, 1500);
         setLoading(false);
       })
       .catch((e) => {
-        console.error(e);
+        if (cancelled) return;
+        console.error("AMap load failed:", e);
         setError("地图加载失败：" + (e?.message || "未知错误"));
         setLoading(false);
       });
 
     return () => {
+      cancelled = true;
       if (mapRef.current) {
         try { mapRef.current.destroy(); } catch {}
         mapRef.current = null;
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiKey, securityCode]);
+  }, []);
 
   // ===== 重新画 overlays（公司/地铁/房源/等时圈）=====
   useEffect(() => {

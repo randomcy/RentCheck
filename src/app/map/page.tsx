@@ -18,7 +18,6 @@ import {
   AlertTriangle,
   MapPin,
 } from "lucide-react";
-import { AMAP_KEY, AMAP_SECURITY_CODE } from "@/lib/amap-config";
 
 import stationsData from "../../../data/subway-stations.json";
 import apartmentsData from "../../../data/apartments.json";
@@ -146,8 +145,6 @@ export default function MapPage() {
               <h3 className="font-semibold text-sm">第 1 步 · 搜你的公司位置</h3>
             </div>
             <PlaceSearch
-              apiKey={AMAP_KEY}
-              securityCode={AMAP_SECURITY_CODE}
               onPick={(p) =>
                 setCompany({
                   id: p.id,
@@ -319,8 +316,6 @@ export default function MapPage() {
               maxMinutes={maxMinutes}
               onApartmentClick={(apt) => setActiveAptId(apt.id)}
               activeApartmentId={activeAptId}
-              apiKey={AMAP_KEY}
-              securityCode={AMAP_SECURITY_CODE}
             />
           </div>
 

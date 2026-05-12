@@ -5,7 +5,7 @@
  * 用户输入"小红书"、"我家小区"、"建外 soho" 都能搜到真实经纬度
  */
 import { useEffect, useRef, useState } from "react";
-import AMapLoader from "@amap/amap-jsapi-loader";
+import { loadAMap } from "@/lib/amap-loader";
 import { Search, X, Loader2 } from "lucide-react";
 
 interface Tip {
@@ -17,8 +17,6 @@ interface Tip {
 }
 
 interface PlaceSearchProps {
-  apiKey: string;
-  securityCode: string;
   onPick: (place: Tip) => void;
   placeholder?: string;
   /** 限定城市，默认北京 */
@@ -26,8 +24,6 @@ interface PlaceSearchProps {
 }
 
 export function PlaceSearch({
-  apiKey,
-  securityCode,
   onPick,
   placeholder = "搜公司、地铁站或小区名…",
   city = "010", // 北京
@@ -43,22 +39,23 @@ export function PlaceSearch({
 
   // ===== 初始化 AutoComplete =====
   useEffect(() => {
-    if (!apiKey) return;
+    let cancelled = false;
     setError(null);
-    (window as any)._AMapSecurityConfig = { securityJsCode: securityCode || "" };
 
-    AMapLoader.load({
-      key: apiKey,
-      version: "2.0",
-      plugins: ["AMap.AutoComplete", "AMap.PlaceSearch"],
-    })
+    loadAMap()
       .then((AMap) => {
+        if (cancelled) return;
         autoRef.current = new AMap.AutoComplete({ city, citylimit: true });
       })
       .catch((e) => {
+        if (cancelled) return;
         setError("加载失败：" + (e?.message || "请检查 key 和安全密钥"));
       });
-  }, [apiKey, securityCode, city]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [city]);
 
   // ===== 搜索（防抖）=====
   useEffect(() => {
