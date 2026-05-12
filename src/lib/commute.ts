@@ -79,6 +79,48 @@ export function stationsWithinCommuteTime(
     .sort((a, b) => a.commuteMinutes - b.commuteMinutes);
 }
 
+/**
+ * 双人平衡模式：找出两个人都能接受、且通勤时长最接近的站点
+ * 返回联合评分 = 两人时长差 | 两人总时长
+ */
+export interface DualCommuteStation extends SubwayStation {
+  minutesA: number;
+  minutesB: number;
+  /** 两人时长差（绝对值） */
+  diffMinutes: number;
+  /** 两人总通勤 */
+  totalMinutes: number;
+  /** 两人都 ≤ maxMinutes 是否成立 */
+  bothFit: boolean;
+}
+
+export function stationsForTwoPeople(
+  stations: SubwayStation[],
+  companyA: Company,
+  companyB: Company,
+  maxMinutes: number
+): DualCommuteStation[] {
+  return stations
+    .map((s) => {
+      const mA = estimateCommuteMinutes(s, companyA);
+      const mB = estimateCommuteMinutes(s, companyB);
+      return {
+        ...s,
+        minutesA: mA,
+        minutesB: mB,
+        diffMinutes: Math.abs(mA - mB),
+        totalMinutes: mA + mB,
+        bothFit: mA <= maxMinutes && mB <= maxMinutes,
+      };
+    })
+    .filter((s) => s.bothFit)
+    // 排序：优先时长差小（越“公平”），同差则总时长短优先
+    .sort((a, b) => {
+      if (a.diffMinutes !== b.diffMinutes) return a.diffMinutes - b.diffMinutes;
+      return a.totalMinutes - b.totalMinutes;
+    });
+}
+
 /** 找出"等时圈内地铁站附近"的房源 */
 export function apartmentsNearStations(
   apartments: Apartment[],

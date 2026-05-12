@@ -53,3 +53,13 @@ export function loadAMap(): Promise<any> {
 
   return amapPromise;
 }
+
+/**
+ * 提前预热 AMap SDK。在组件代码被加载时（module 顶层）就可以调，
+ * 不用等 useEffect。重复调用是安全的（复用同一个 promise）。
+ */
+export function prefetchAMap(): void {
+  if (typeof window === "undefined") return;
+  // 不等 promise，只是启动加载
+  loadAMap().catch(() => {/* 静默处理，后续 useEffect 里还会重试 */});
+}

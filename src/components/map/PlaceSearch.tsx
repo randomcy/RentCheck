@@ -5,8 +5,11 @@
  * 用户输入"小红书"、"我家小区"、"建外 soho" 都能搜到真实经纬度
  */
 import { useEffect, useRef, useState } from "react";
-import { loadAMap } from "@/lib/amap-loader";
+import { loadAMap, prefetchAMap } from "@/lib/amap-loader";
 import { Search, X, Loader2 } from "lucide-react";
+
+// 模块加载时即预热 AMap SDK
+if (typeof window !== "undefined") prefetchAMap();
 
 interface Tip {
   id: string;
