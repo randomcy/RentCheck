@@ -71,7 +71,7 @@ export function CommuteMap({
 
     setLoading(true);
     setError(null);
-    AMapLoader.reset();
+    (AMapLoader as any).reset?.();
     AMapLoader.load({
       key,
       version: "2.0",

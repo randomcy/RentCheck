@@ -29,8 +29,8 @@ export interface Company {
   name: string;
   lng: number;
   lat: number;
-  address: string;
-  industry: string;
+  address?: string;
+  industry?: string;
 }
 
 /** 经纬度直线距离（米），Haversine */

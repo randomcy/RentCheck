@@ -2,10 +2,10 @@
   {
     "id": "apt_001",
     "title": "望京西园三区·一居·精装南向·近地铁",
-    "communityId": "comm_001",
+    "communityId": "comm_002",
     "price": 7500,
     "roomType": "一居室",
-    "area": "望京/南湖",
+    "area": 45,
     "floor": "低楼层",
     "buildingType": "塔楼",
     "decoration": "精装",
@@ -28,22 +28,15 @@
       "/mock/apt_001_1.jpg",
       "/mock/apt_001_2.jpg"
     ],
-    "description": "窗外是国贸 CBD 夜景，走 5 分钟到朝阳门地铁站，10 号线 6 号线随便选。客厅采光特别好，下午能晒到太阳。",
-    "hidden_cons": [
-      "燃气热水器超过 5 年没换，洗澡水温不稳",
-      "物业费要租客自付，每月 80-150"
-    ],
-    "community_id": "comm_002",
-    "community_name": "望京西园三区",
-    "district": "朝阳区"
+    "description": "窗外是国贸 CBD 夜景，走 5 分钟到朝阳门地铁站，10 号线 6 号线随便选。客厅采光特别好，下午能晒到太阳。"
   },
   {
     "id": "apt_002",
     "title": "苹果社区·开间·新房东·有阳台",
-    "communityId": "comm_001",
+    "communityId": "comm_009",
     "price": 6800,
-    "roomType": "整租开间",
-    "area": "双井/百子湾",
+    "roomType": "开间",
+    "area": 24,
     "floor": "低楼层",
     "buildingType": "板楼",
     "decoration": "网红装修",
@@ -64,22 +57,15 @@
       "/mock/apt_002_1.jpg",
       "/mock/apt_002_2.jpg"
     ],
-    "description": "楼下就是太古里，闺蜜约咖啡不用打车。装修是去年翻新的，全屋智能灯，气氛拉满。",
-    "hidden_cons": [
-      "中介费要 1 个月房租，提前沟通能砍到 0.5",
-      "物业费要租客自付，每月 80-150"
-    ],
-    "community_id": "comm_009",
-    "community_name": "苹果社区",
-    "district": "朝阳区"
+    "description": "楼下就是太古里，闺蜜约咖啡不用打车。装修是去年翻新的，全屋智能灯，气氛拉满。"
   },
   {
     "id": "apt_003",
     "title": "中科院黄庄·两居·南北通透·全套家电",
-    "communityId": "comm_001",
+    "communityId": "comm_004",
     "price": 11000,
     "roomType": "两居室",
-    "area": "中关村/海淀黄庄",
+    "area": 83,
     "floor": "高楼层",
     "buildingType": "塔楼",
     "decoration": "精装",
@@ -100,22 +86,15 @@
       "/mock/apt_003_1.jpg",
       "/mock/apt_003_2.jpg"
     ],
-    "description": "工体改造后再回来看就觉得人间值得，两个卧室带飘窗，主卧能看到工体的夜景。",
-    "hidden_cons": [
-      "押二付三，押金要二房东亲签，退房可能扯皮",
-      "实拍照片是租赁公司拍的，到实地一看楼道堆杂物"
-    ],
-    "community_id": "comm_004",
-    "community_name": "中科院黄庄",
-    "district": "海淀区"
+    "description": "工体改造后再回来看就觉得人间值得，两个卧室带飘窗，主卧能看到工体的夜景。"
   },
   {
     "id": "apt_004",
     "title": "龙泽苑东区·一居·精装南向·近地铁",
-    "communityId": "comm_002",
+    "communityId": "comm_006",
     "price": 6500,
     "roomType": "一居室",
-    "area": "回龙观/龙泽",
+    "area": 40,
     "floor": "低楼层",
     "buildingType": "板楼",
     "decoration": "网红装修",
@@ -136,22 +115,15 @@
       "/mock/apt_004_1.jpg",
       "/mock/apt_004_2.jpg"
     ],
-    "description": "骑车 8 分钟到字节，地铁 15 号线一站到将台。小区中央花园特别大，早上跑步很爽。",
-    "hidden_cons": [
-      "物业费要租客自付，每月 80-150",
-      "中介费要 1 个月房租，提前沟通能砍到 0.5"
-    ],
-    "community_id": "comm_006",
-    "community_name": "龙泽苑东区",
-    "district": "昌平区"
+    "description": "骑车 8 分钟到字节，地铁 15 号线一站到将台。小区中央花园特别大，早上跑步很爽。"
   },
   {
     "id": "apt_005",
     "title": "龙泽苑东区·卧室·急租可议价",
-    "communityId": "comm_002",
+    "communityId": "comm_006",
     "price": 3500,
-    "roomType": "合租单间",
-    "area": "回龙观/龙泽",
+    "roomType": "卧室",
+    "area": 17,
     "floor": "低楼层",
     "buildingType": "板楼",
     "decoration": "普通装修",
@@ -171,22 +143,15 @@
       "/mock/apt_005_1.jpg",
       "/mock/apt_005_2.jpg"
     ],
-    "description": "三人合租，主卧带独卫和飘窗。室友都是互联网行业，相处特别舒服。",
-    "hidden_cons": [
-      "采暖费 800-1500/季要自付",
-      "周边便利店少，最近商超走路 15min"
-    ],
-    "community_id": "comm_006",
-    "community_name": "龙泽苑东区",
-    "district": "昌平区"
+    "description": "三人合租，主卧带独卫和飘窗。室友都是互联网行业，相处特别舒服。"
   },
   {
     "id": "apt_006",
     "title": "中科院黄庄·两居·高层精装·拎包入住",
-    "communityId": "comm_002",
+    "communityId": "comm_004",
     "price": 9000,
     "roomType": "两居室",
-    "area": "中关村/海淀黄庄",
+    "area": 74,
     "floor": "低楼层",
     "buildingType": "板楼",
     "decoration": "精装",
@@ -207,22 +172,15 @@
       "/mock/apt_006_1.jpg",
       "/mock/apt_006_2.jpg"
     ],
-    "description": "南北通透的板楼，70 多平方米的客厅，楼下就是韩国超市。物业的大叔特别热情。",
-    "hidden_cons": [
-      "实拍照片是租赁公司拍的，到实地一看楼道堆杂物",
-      "押二付三，押金要二房东亲签，退房可能扯皮"
-    ],
-    "community_id": "comm_004",
-    "community_name": "中科院黄庄",
-    "district": "海淀区"
+    "description": "南北通透的板楼，70 多平方米的客厅，楼下就是韩国超市。物业的大叔特别热情。"
   },
   {
     "id": "apt_007",
     "title": "中科院黄庄·一居·南北通透·全套家电",
-    "communityId": "comm_003",
+    "communityId": "comm_004",
     "price": 11500,
     "roomType": "一居室",
-    "area": "中关村/海淀黄庄",
+    "area": 39,
     "floor": "低楼层",
     "buildingType": "塔楼",
     "decoration": "精装",
@@ -244,22 +202,15 @@
       "/mock/apt_007_1.jpg",
       "/mock/apt_007_2.jpg"
     ],
-    "description": "34 楼，能看到整个 CBD 夜景，朋友来都拍照拍到不想走。下楼就是国贸三期，金融民工救星。",
-    "hidden_cons": [
-      "停车费要单独算，每月 300+",
-      "实拍照片是租赁公司拍的，到实地一看楼道堆杂物"
-    ],
-    "community_id": "comm_004",
-    "community_name": "中科院黄庄",
-    "district": "海淀区"
+    "description": "34 楼，能看到整个 CBD 夜景，朋友来都拍照拍到不想走。下楼就是国贸三期，金融民工救星。"
   },
   {
     "id": "apt_008",
     "title": "中科院黄庄·开间·南北通透·全套家电",
-    "communityId": "comm_003",
+    "communityId": "comm_004",
     "price": 9800,
-    "roomType": "整租开间",
-    "area": "中关村/海淀黄庄",
+    "roomType": "开间",
+    "area": 30,
     "floor": "低楼层",
     "buildingType": "塔楼",
     "decoration": "精装",
@@ -281,22 +232,15 @@
       "/mock/apt_008_1.jpg",
       "/mock/apt_008_2.jpg"
     ],
-    "description": "酒店式公寓，可以月付，下楼是 SKP。客户来北京我经常直接推荐这里。",
-    "hidden_cons": [
-      "押二付三，押金要二房东亲签，退房可能扯皮",
-      "实拍照片是租赁公司拍的，到实地一看楼道堆杂物"
-    ],
-    "community_id": "comm_004",
-    "community_name": "中科院黄庄",
-    "district": "海淀区"
+    "description": "酒店式公寓，可以月付，下楼是 SKP。客户来北京我经常直接推荐这里。"
   },
   {
     "id": "apt_009",
     "title": "泛海国际居住区·两居·南北通透·全套家电",
-    "communityId": "comm_003",
+    "communityId": "comm_008",
     "price": 13500,
     "roomType": "两居室",
-    "area": "朝阳公园/东四环",
+    "area": 63,
     "floor": "低楼层",
     "buildingType": "塔楼",
     "decoration": "精装",
@@ -317,22 +261,15 @@
       "/mock/apt_009_1.jpg",
       "/mock/apt_009_2.jpg"
     ],
-    "description": "中央空调 + 地暖 + 智能门锁，住进来真的有种豪华酒店的感觉。物业不愧是号称北京 Top 3。",
-    "hidden_cons": [
-      "停车费要单独算，每月 300+",
-      "押二付三，押金要二房东亲签，退房可能扯皮"
-    ],
-    "community_id": "comm_008",
-    "community_name": "泛海国际居住区",
-    "district": "朝阳区"
+    "description": "中央空调 + 地暖 + 智能门锁，住进来真的有种豪华酒店的感觉。物业不愧是号称北京 Top 3。"
   },
   {
     "id": "apt_010",
     "title": "安慧北里·一居·中楼层·已翻新",
-    "communityId": "comm_004",
+    "communityId": "comm_010",
     "price": 6800,
     "roomType": "一居室",
-    "area": "亚运村",
+    "area": 48,
     "floor": "低楼层",
     "buildingType": "板楼",
     "decoration": "网红装修",
@@ -354,22 +291,15 @@
       "/mock/apt_010_1.jpg",
       "/mock/apt_010_2.jpg"
     ],
-    "description": "走路 12 分钟到字节中关村，房东人特别好，家电都是新换的。但隔音是真的薄。",
-    "hidden_cons": [
-      "物业费要租客自付，每月 80-150",
-      "中介费要 1 个月房租，提前沟通能砍到 0.5"
-    ],
-    "community_id": "comm_010",
-    "community_name": "安慧北里",
-    "district": "朝阳区"
+    "description": "走路 12 分钟到字节中关村，房东人特别好，家电都是新换的。但隔音是真的薄。"
   },
   {
     "id": "apt_011",
     "title": "新华联家园·正规卧室·房东直租",
-    "communityId": "comm_004",
+    "communityId": "comm_007",
     "price": 3800,
-    "roomType": "合租单间",
-    "area": "新华大街/北苑",
+    "roomType": "卧室",
+    "area": 13,
     "floor": "中楼层",
     "buildingType": "塔楼",
     "decoration": "普通装修",
@@ -390,22 +320,15 @@
       "/mock/apt_011_1.jpg",
       "/mock/apt_011_2.jpg"
     ],
-    "description": "四人合租，主卧带独卫，室友三个码农一个产品经理，凌晨敲键盘没人嫌弃。",
-    "hidden_cons": [
-      "周边便利店少，最近商超走路 15min",
-      "采暖费 800-1500/季要自付"
-    ],
-    "community_id": "comm_007",
-    "community_name": "新华联家园",
-    "district": "通州区"
+    "description": "四人合租，主卧带独卫，室友三个码农一个产品经理，凌晨敲键盘没人嫌弃。"
   },
   {
     "id": "apt_012",
     "title": "望京西园三区·两居·业主自住·已整装",
-    "communityId": "comm_004",
+    "communityId": "comm_002",
     "price": 9500,
     "roomType": "两居室",
-    "area": "望京/南湖",
+    "area": 65,
     "floor": "中楼层",
     "buildingType": "板楼",
     "decoration": "精装",
@@ -426,22 +349,15 @@
       "/mock/apt_012_1.jpg",
       "/mock/apt_012_2.jpg"
     ],
-    "description": "正经学区房，旁边就是人大附小。楼是 98 年的，装修去年翻新过，住着体面。",
-    "hidden_cons": [
-      "停车费要单独算，每月 300+",
-      "押二付三，押金要二房东亲签，退房可能扯皮"
-    ],
-    "community_id": "comm_002",
-    "community_name": "望京西园三区",
-    "district": "朝阳区"
+    "description": "正经学区房，旁边就是人大附小。楼是 98 年的，装修去年翻新过，住着体面。"
   },
   {
     "id": "apt_013",
     "title": "苹果社区·开间·新房东·有阳台",
-    "communityId": "comm_005",
+    "communityId": "comm_009",
     "price": 5500,
-    "roomType": "整租开间",
-    "area": "双井/百子湾",
+    "roomType": "开间",
+    "area": 29,
     "floor": "低楼层",
     "buildingType": "塔楼",
     "decoration": "普通装修",
@@ -463,22 +379,15 @@
       "/mock/apt_013_1.jpg",
       "/mock/apt_013_2.jpg"
     ],
-    "description": "13 号线一站到知春路，五道口购物中心下楼就是。窗外能看到清华园，很有大学城感觉。",
-    "hidden_cons": [
-      "物业费要租客自付，每月 80-150",
-      "中介费要 1 个月房租，提前沟通能砍到 0.5"
-    ],
-    "community_id": "comm_009",
-    "community_name": "苹果社区",
-    "district": "朝阳区"
+    "description": "13 号线一站到知春路，五道口购物中心下楼就是。窗外能看到清华园，很有大学城感觉。"
   },
   {
     "id": "apt_014",
     "title": "新华联家园·南向卧室·拎包入住",
-    "communityId": "comm_005",
+    "communityId": "comm_007",
     "price": 4200,
-    "roomType": "合租单间",
-    "area": "新华大街/北苑",
+    "roomType": "卧室",
+    "area": 20,
     "floor": "低楼层",
     "buildingType": "板楼",
     "decoration": "普通装修",
@@ -500,22 +409,15 @@
       "/mock/apt_014_1.jpg",
       "/mock/apt_014_2.jpg"
     ],
-    "description": "二人合租，主卧带飘窗，室友韩国人特别热情，经常给我送泡菜。",
-    "hidden_cons": [
-      "采暖费 800-1500/季要自付",
-      "墙皮发霉的情况要看实地，照片可能修过"
-    ],
-    "community_id": "comm_007",
-    "community_name": "新华联家园",
-    "district": "通州区"
+    "description": "二人合租，主卧带飘窗，室友韩国人特别热情，经常给我送泡菜。"
   },
   {
     "id": "apt_015",
     "title": "望京西园三区·一居·精装南向·近地铁",
-    "communityId": "comm_005",
+    "communityId": "comm_002",
     "price": 7200,
     "roomType": "一居室",
-    "area": "望京/南湖",
+    "area": 41,
     "floor": "低楼层",
     "buildingType": "塔楼",
     "decoration": "精装",
@@ -536,14 +438,7 @@
       "/mock/apt_015_1.jpg",
       "/mock/apt_015_2.jpg"
     ],
-    "description": "13 号线 + 15 号线双地铁，去望京也方便。楼下就是雪绒花韩餐和五道口购物中心。",
-    "hidden_cons": [
-      "燃气热水器超过 5 年没换，洗澡水温不稳",
-      "中介费要 1 个月房租，提前沟通能砍到 0.5"
-    ],
-    "community_id": "comm_002",
-    "community_name": "望京西园三区",
-    "district": "朝阳区"
+    "description": "13 号线 + 15 号线双地铁，去望京也方便。楼下就是雪绒花韩餐和五道口购物中心。"
   },
   {
     "id": "apt_016",
@@ -551,7 +446,7 @@
     "communityId": "comm_006",
     "price": 4500,
     "roomType": "一居室",
-    "area": "回龙观/龙泽",
+    "area": 43,
     "floor": "低楼层",
     "buildingType": "板楼",
     "decoration": "普通装修",
@@ -573,23 +468,15 @@
       "/mock/apt_016_1.jpg",
       "/mock/apt_016_2.jpg"
     ],
-    "description": "13 号线一站到西二旗，骑共享单车 15 分钟到百度。性价比真的高，4500 能租到这种品质。",
-    "hidden_cons": [
-      "周边便利店少，最近商超走路 15min",
-      "电费按商业用电算，每度比家用贵 0.3",
-      "下班 8 点后地铁回家空座率低，但人很挤"
-    ],
-    "community_id": "comm_006",
-    "community_name": "龙泽苑东区",
-    "district": "昌平区"
+    "description": "13 号线一站到西二旗，骑共享单车 15 分钟到百度。性价比真的高，4500 能租到这种品质。"
   },
   {
     "id": "apt_017",
     "title": "龙泽苑东区·南向卧室·拎包入住",
     "communityId": "comm_006",
     "price": 2800,
-    "roomType": "合租单间",
-    "area": "回龙观/龙泽",
+    "roomType": "卧室",
+    "area": 18,
     "floor": "高楼层",
     "buildingType": "塔楼",
     "decoration": "普通装修",
@@ -611,23 +498,15 @@
       "/mock/apt_017_1.jpg",
       "/mock/apt_017_2.jpg"
     ],
-    "description": "三人合租，独立卫生间。室友都是西二旗码农，每天 7:30 一起出门挤地铁，奇怪的战友情。",
-    "hidden_cons": [
-      "采暖费 800-1500/季要自付",
-      "墙皮发霉的情况要看实地，照片可能修过",
-      "外卖配送费比城里贵 3-5 元"
-    ],
-    "community_id": "comm_006",
-    "community_name": "龙泽苑东区",
-    "district": "昌平区"
+    "description": "三人合租，独立卫生间。室友都是西二旗码农，每天 7:30 一起出门挤地铁，奇怪的战友情。"
   },
   {
     "id": "apt_018",
     "title": "苹果社区·两居·精装南向·近地铁",
-    "communityId": "comm_006",
+    "communityId": "comm_009",
     "price": 6800,
     "roomType": "两居室",
-    "area": "双井/百子湾",
+    "area": 93,
     "floor": "低楼层",
     "buildingType": "塔楼",
     "decoration": "精装",
@@ -649,22 +528,15 @@
       "/mock/apt_018_1.jpg",
       "/mock/apt_018_2.jpg"
     ],
-    "description": "板楼方正户型，南北通透。下楼就是龙域中心万象汇，附近还有回龙观体育公园。",
-    "hidden_cons": [
-      "物业费要租客自付，每月 80-150",
-      "燃气热水器超过 5 年没换，洗澡水温不稳"
-    ],
-    "community_id": "comm_009",
-    "community_name": "苹果社区",
-    "district": "朝阳区"
+    "description": "板楼方正户型，南北通透。下楼就是龙域中心万象汇，附近还有回龙观体育公园。"
   },
   {
     "id": "apt_019",
     "title": "龙泽苑东区·一居·急租可议价",
-    "communityId": "comm_007",
+    "communityId": "comm_006",
     "price": 4800,
     "roomType": "一居室",
-    "area": "回龙观/龙泽",
+    "area": 51,
     "floor": "高楼层",
     "buildingType": "塔楼",
     "decoration": "普通装修",
@@ -686,23 +558,15 @@
       "/mock/apt_019_1.jpg",
       "/mock/apt_019_2.jpg"
     ],
-    "description": "7 号线 + 6 号线，到环球影城打个车 10 分钟。家电是新换的，户型方正。",
-    "hidden_cons": [
-      "墙皮发霉的情况要看实地，照片可能修过",
-      "采暖费 800-1500/季要自付",
-      "外卖配送费比城里贵 3-5 元"
-    ],
-    "community_id": "comm_006",
-    "community_name": "龙泽苑东区",
-    "district": "昌平区"
+    "description": "7 号线 + 6 号线，到环球影城打个车 10 分钟。家电是新换的，户型方正。"
   },
   {
     "id": "apt_020",
     "title": "龙泽苑东区·开间·急租可议价",
-    "communityId": "comm_007",
+    "communityId": "comm_006",
     "price": 4200,
-    "roomType": "整租开间",
-    "area": "回龙观/龙泽",
+    "roomType": "开间",
+    "area": 28,
     "floor": "中楼层",
     "buildingType": "塔楼",
     "decoration": "普通装修",
@@ -724,23 +588,15 @@
       "/mock/apt_020_1.jpg",
       "/mock/apt_020_2.jpg"
     ],
-    "description": "通州万达广场旁边，下楼啥都有。地铁直达国贸 40 分钟，能接受的话超划算。",
-    "hidden_cons": [
-      "电费按商业用电算，每度比家用贵 0.3",
-      "采暖费 800-1500/季要自付",
-      "下班 8 点后地铁回家空座率低，但人很挤"
-    ],
-    "community_id": "comm_006",
-    "community_name": "龙泽苑东区",
-    "district": "昌平区"
+    "description": "通州万达广场旁边，下楼啥都有。地铁直达国贸 40 分钟，能接受的话超划算。"
   },
   {
     "id": "apt_021",
     "title": "苹果社区·两居·中楼层·已翻新",
-    "communityId": "comm_007",
+    "communityId": "comm_009",
     "price": 6500,
     "roomType": "两居室",
-    "area": "双井/百子湾",
+    "area": 94,
     "floor": "中楼层",
     "buildingType": "塔楼",
     "decoration": "精装",
@@ -762,23 +618,15 @@
       "/mock/apt_021_1.jpg",
       "/mock/apt_021_2.jpg"
     ],
-    "description": "副中心房子，邻居很多年轻夫妻有娃。小区绿化好，遛娃溜娃溜宠物都方便。",
-    "hidden_cons": [
-      "物业费要租客自付，每月 80-150",
-      "燃气热水器超过 5 年没换，洗澡水温不稳",
-      "外卖配送费比城里贵 3-5 元"
-    ],
-    "community_id": "comm_009",
-    "community_name": "苹果社区",
-    "district": "朝阳区"
+    "description": "副中心房子，邻居很多年轻夫妻有娃。小区绿化好，遛娃溜娃溜宠物都方便。"
   },
   {
     "id": "apt_022",
     "title": "华清嘉园·一居·精装南向·近地铁",
-    "communityId": "comm_008",
+    "communityId": "comm_005",
     "price": 7200,
     "roomType": "一居室",
-    "area": "五道口/清华东门",
+    "area": 39,
     "floor": "低楼层",
     "buildingType": "板楼",
     "decoration": "网红装修",
@@ -801,22 +649,15 @@
       "/mock/apt_022_1.jpg",
       "/mock/apt_022_2.jpg"
     ],
-    "description": "6 号线一站到朝阳门，两站到国贸。下楼就是华堂商场，地下日料是隐藏宝藏。",
-    "hidden_cons": [
-      "燃气热水器超过 5 年没换，洗澡水温不稳",
-      "中介费要 1 个月房租，提前沟通能砍到 0.5"
-    ],
-    "community_id": "comm_005",
-    "community_name": "华清嘉园",
-    "district": "海淀区"
+    "description": "6 号线一站到朝阳门，两站到国贸。下楼就是华堂商场，地下日料是隐藏宝藏。"
   },
   {
     "id": "apt_023",
     "title": "中科院黄庄·两居·南北通透·全套家电",
-    "communityId": "comm_008",
+    "communityId": "comm_004",
     "price": 9500,
     "roomType": "两居室",
-    "area": "中关村/海淀黄庄",
+    "area": 90,
     "floor": "高楼层",
     "buildingType": "板楼",
     "decoration": "精装",
@@ -837,22 +678,15 @@
       "/mock/apt_023_1.jpg",
       "/mock/apt_023_2.jpg"
     ],
-    "description": "比三里屯便宜 30%，但通勤几乎一样。楼下就是 6 号线，附近还有家乐福和华堂。",
-    "hidden_cons": [
-      "实拍照片是租赁公司拍的，到实地一看楼道堆杂物",
-      "押二付三，押金要二房东亲签，退房可能扯皮"
-    ],
-    "community_id": "comm_004",
-    "community_name": "中科院黄庄",
-    "district": "海淀区"
+    "description": "比三里屯便宜 30%，但通勤几乎一样。楼下就是 6 号线，附近还有家乐福和华堂。"
   },
   {
     "id": "apt_024",
     "title": "龙泽苑东区·卧室·急租可议价",
-    "communityId": "comm_008",
+    "communityId": "comm_006",
     "price": 3800,
-    "roomType": "合租单间",
-    "area": "回龙观/龙泽",
+    "roomType": "卧室",
+    "area": 15,
     "floor": "低楼层",
     "buildingType": "板楼",
     "decoration": "普通装修",
@@ -873,22 +707,15 @@
       "/mock/apt_024_1.jpg",
       "/mock/apt_024_2.jpg"
     ],
-    "description": "三人合租，主卧带独卫飘窗。室友都是 28+ 上班族，作息正常，安静。",
-    "hidden_cons": [
-      "周边便利店少，最近商超走路 15min",
-      "墙皮发霉的情况要看实地，照片可能修过"
-    ],
-    "community_id": "comm_006",
-    "community_name": "龙泽苑东区",
-    "district": "昌平区"
+    "description": "三人合租，主卧带独卫飘窗。室友都是 28+ 上班族，作息正常，安静。"
   },
   {
     "id": "apt_025",
     "title": "华清嘉园·一居·精装南向·近地铁",
-    "communityId": "comm_009",
+    "communityId": "comm_005",
     "price": 8200,
     "roomType": "一居室",
-    "area": "五道口/清华东门",
+    "area": 41,
     "floor": "中楼层",
     "buildingType": "塔楼",
     "decoration": "精装",
@@ -910,22 +737,15 @@
       "/mock/apt_025_1.jpg",
       "/mock/apt_025_2.jpg"
     ],
-    "description": "苹果社区颜值在线，装修是去年翻新的，全屋智能。下楼就是富力广场，电影健身一站搞定。",
-    "hidden_cons": [
-      "实拍照片是租赁公司拍的，到实地一看楼道堆杂物",
-      "押二付三，押金要二房东亲签，退房可能扯皮"
-    ],
-    "community_id": "comm_005",
-    "community_name": "华清嘉园",
-    "district": "海淀区"
+    "description": "苹果社区颜值在线，装修是去年翻新的，全屋智能。下楼就是富力广场，电影健身一站搞定。"
   },
   {
     "id": "apt_026",
     "title": "望京西园三区·两居·业主自住·已整装",
-    "communityId": "comm_009",
+    "communityId": "comm_002",
     "price": 11500,
     "roomType": "两居室",
-    "area": "望京/南湖",
+    "area": 66,
     "floor": "中楼层",
     "buildingType": "板楼",
     "decoration": "精装",
@@ -947,22 +767,15 @@
       "/mock/apt_026_1.jpg",
       "/mock/apt_026_2.jpg"
     ],
-    "description": "10 号线一站到国贸，三站到团结湖。客厅能看到 CBD 全景，朋友来超有面子。",
-    "hidden_cons": [
-      "押二付三，押金要二房东亲签，退房可能扯皮",
-      "实拍照片是租赁公司拍的，到实地一看楼道堆杂物"
-    ],
-    "community_id": "comm_002",
-    "community_name": "望京西园三区",
-    "district": "朝阳区"
+    "description": "10 号线一站到国贸，三站到团结湖。客厅能看到 CBD 全景，朋友来超有面子。"
   },
   {
     "id": "apt_027",
     "title": "安慧北里·开间·中楼层·已翻新",
-    "communityId": "comm_009",
+    "communityId": "comm_010",
     "price": 6500,
-    "roomType": "整租开间",
-    "area": "亚运村",
+    "roomType": "开间",
+    "area": 27,
     "floor": "低楼层",
     "buildingType": "板楼",
     "decoration": "网红装修",
@@ -984,22 +797,15 @@
       "/mock/apt_027_1.jpg",
       "/mock/apt_027_2.jpg"
     ],
-    "description": "网红装修，墙是脏粉色，飘窗带绿植。物业可以养猫养狗，对宠物特别友好。",
-    "hidden_cons": [
-      "物业费要租客自付，每月 80-150",
-      "中介费要 1 个月房租，提前沟通能砍到 0.5"
-    ],
-    "community_id": "comm_010",
-    "community_name": "安慧北里",
-    "district": "朝阳区"
+    "description": "网红装修，墙是脏粉色，飘窗带绿植。物业可以养猫养狗，对宠物特别友好。"
   },
   {
     "id": "apt_028",
     "title": "新华联家园·南向一居·拎包入住",
-    "communityId": "comm_010",
+    "communityId": "comm_007",
     "price": 4500,
     "roomType": "一居室",
-    "area": "新华大街/北苑",
+    "area": 56,
     "floor": "高楼层",
     "buildingType": "板楼",
     "decoration": "普通装修",
@@ -1022,22 +828,15 @@
       "/mock/apt_028_1.jpg",
       "/mock/apt_028_2.jpg"
     ],
-    "description": "5 号线 + 8 号线，去鸟巢早上跑步特别方便。老房子但房东刷了大白墙，住起来还行。",
-    "hidden_cons": [
-      "电费按商业用电算，每度比家用贵 0.3",
-      "周边便利店少，最近商超走路 15min"
-    ],
-    "community_id": "comm_007",
-    "community_name": "新华联家园",
-    "district": "通州区"
+    "description": "5 号线 + 8 号线，去鸟巢早上跑步特别方便。老房子但房东刷了大白墙，住起来还行。"
   },
   {
     "id": "apt_029",
     "title": "龙泽苑东区·正规卧室·房东直租",
-    "communityId": "comm_010",
+    "communityId": "comm_006",
     "price": 3000,
-    "roomType": "合租单间",
-    "area": "回龙观/龙泽",
+    "roomType": "卧室",
+    "area": 14,
     "floor": "高楼层",
     "buildingType": "塔楼",
     "decoration": "普通装修",
@@ -1059,22 +858,15 @@
       "/mock/apt_029_1.jpg",
       "/mock/apt_029_2.jpg"
     ],
-    "description": "二人合租，旁边就是奥森公园。室友是个英语老师，每天早上 6 点跑步，作息正常。",
-    "hidden_cons": [
-      "周边便利店少，最近商超走路 15min",
-      "电费按商业用电算，每度比家用贵 0.3"
-    ],
-    "community_id": "comm_006",
-    "community_name": "龙泽苑东区",
-    "district": "昌平区"
+    "description": "二人合租，旁边就是奥森公园。室友是个英语老师，每天早上 6 点跑步，作息正常。"
   },
   {
     "id": "apt_030",
     "title": "苹果社区·两居·精装南向·近地铁",
-    "communityId": "comm_010",
+    "communityId": "comm_009",
     "price": 6800,
     "roomType": "两居室",
-    "area": "双井/百子湾",
+    "area": 81,
     "floor": "高楼层",
     "buildingType": "塔楼",
     "decoration": "精装",
@@ -1097,13 +889,6 @@
       "/mock/apt_030_1.jpg",
       "/mock/apt_030_2.jpg"
     ],
-    "description": "亚运村板楼，南北通透，临近北辰购物中心。小区里大爷大妈多，老北京味道浓。",
-    "hidden_cons": [
-      "物业费要租客自付，每月 80-150",
-      "燃气热水器超过 5 年没换，洗澡水温不稳"
-    ],
-    "community_id": "comm_009",
-    "community_name": "苹果社区",
-    "district": "朝阳区"
+    "description": "亚运村板楼，南北通透，临近北辰购物中心。小区里大爷大妈多，老北京味道浓。"
   }
 ]
