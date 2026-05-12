@@ -18,6 +18,9 @@ import {
 } from "lucide-react";
 
 import fallbackStations from "../../../data/subway-stations.json";
+import communitiesData from "../../../data/communities.json";
+import type { Community } from "@/types";
+import { NearbyCommunities } from "@/components/map/NearbyCommunities";
 
 import {
   stationsWithinCommuteTime,
@@ -122,6 +125,14 @@ export default function MapPage() {
   const matchedStations = isDual ? dualStations : singleStations;
   const totalMatched = matchedStations.length;
   const visibleStations = matchedStations.slice(0, listPage * LIST_PAGE_SIZE);
+  const activeStation = useMemo(
+    () =>
+      activeStationId
+        ? allStations.find((s) => s.id === activeStationId) ?? null
+        : null,
+    [activeStationId, allStations]
+  );
+  const allCommunities = communitiesData as Community[];
   const hasMore = totalMatched > visibleStations.length;
 
   // 切换模式或筛选条件变了，重置分页
@@ -499,6 +510,12 @@ export default function MapPage() {
               </div>
             )}
           </Card>
+
+          {/* 站 → 附近小区闭环（修复产品反思 §2.2 「找到站之后没下文」） */}
+          <NearbyCommunities
+            station={activeStation}
+            communities={allCommunities}
+          />
         </div>
       </div>
     </div>

@@ -10,12 +10,12 @@
     },
     "buildYear": 2010,
     "buildingType": "SOHO 公寓",
-    "totalRating": 4.0,
+    "totalRating": 4,
     "subscores": {
       "noise": 2.8,
       "soundproof": 3.5,
       "property": 4.2,
-      "safety": 4.0,
+      "safety": 4,
       "amenity": 4.9,
       "valueForMoney": 2.6
     },
@@ -105,7 +105,13 @@
     "sources": [
       "[SOHO中国官网](https://www.sohochina.com/project.aspx?projectid=14)",
       "[Tripadvisor 三里屯 SOHO 评论](https://cn.tripadvisor.com/Attraction_Review-g294212-d3655640-Reviews-Sanlitun_Soho-Beijing.html)"
-    ]
+    ],
+    "hiddenRisks": {
+      "heating": "self",
+      "utility": "commercial",
+      "isRelocation": false,
+      "note": "SOHO 公寓商水商电，月水电费比民用贵 2-3 倍；自采暖电费冬季高"
+    }
   },
   {
     "id": "comm_002",
@@ -213,7 +219,12 @@
     "sources": [
       "[贝壳找房 望京西园三区](https://bj.ke.com/xiaoqu/1111027376551/)",
       "[安居客 望京西园三区](https://beijing.anjuke.com/community/view/76263)"
-    ]
+    ],
+    "hiddenRisks": {
+      "heating": "central",
+      "utility": "residential",
+      "isRelocation": false
+    }
   },
   {
     "id": "comm_003",
@@ -229,7 +240,7 @@
     "totalRating": 4.3,
     "subscores": {
       "noise": 3.8,
-      "soundproof": 4.0,
+      "soundproof": 4,
       "property": 4.8,
       "safety": 4.7,
       "amenity": 4.6,
@@ -320,7 +331,13 @@
     "sources": [
       "[国贸公寓官网](https://www.worldapartments.com.cn)",
       "[中国国际贸易中心 国贸公寓](https://www.cwtc.com/service/rental.html)"
-    ]
+    ],
+    "hiddenRisks": {
+      "heating": "central",
+      "utility": "commercial",
+      "isRelocation": false,
+      "note": "服务式公寓水电按商用计价，月固定开销显著高于普通住宅"
+    }
   },
   {
     "id": "comm_004",
@@ -333,12 +350,12 @@
     },
     "buildYear": 1997,
     "buildingType": "单位板楼",
-    "totalRating": 4.0,
+    "totalRating": 4,
     "subscores": {
       "noise": 3.5,
       "soundproof": 3.3,
       "property": 3.5,
-      "safety": 4.0,
+      "safety": 4,
       "amenity": 4.6,
       "valueForMoney": 3.9
     },
@@ -428,7 +445,12 @@
     "sources": [
       "[安居客 中科院黄庄](https://m.anjuke.com/bj/community/116843/)",
       "[搜狐 黄庄学区分析](https://www.sohu.com/a/735908417_121841658)"
-    ]
+    ],
+    "hiddenRisks": {
+      "heating": "central",
+      "utility": "residential",
+      "isRelocation": false
+    }
   },
   {
     "id": "comm_005",
@@ -444,7 +466,7 @@
     "totalRating": 3.9,
     "subscores": {
       "noise": 2.6,
-      "soundproof": 3.0,
+      "soundproof": 3,
       "property": 3.5,
       "safety": 3.8,
       "amenity": 4.7,
@@ -536,7 +558,12 @@
     "sources": [
       "[房天下 华清嘉园](https://www.fang.com/houses/zf_267566bj/)",
       "[安居客 华清嘉园租金](https://m.anjuke.com/bj/community/80898/zujin/)"
-    ]
+    ],
+    "hiddenRisks": {
+      "heating": "central",
+      "utility": "residential",
+      "isRelocation": false
+    }
   },
   {
     "id": "comm_006",
@@ -643,7 +670,13 @@
     "sources": [
       "[幸福里 龙泽苑测评](https://m.xflapp.com/block-strategy/6587274248065122563/7009168040294170637)",
       "[安居客 龙泽板块解读](https://m.anjuke.com/bj/community/65287/jiedu/)"
-    ]
+    ],
+    "hiddenRisks": {
+      "heating": "central",
+      "utility": "residential",
+      "isRelocation": true,
+      "note": "回龙观片区部分楼栋为回迁安置，邻里素质参差不齐"
+    }
   },
   {
     "id": "comm_007",
@@ -750,7 +783,13 @@
     "sources": [
       "[链家 北京租房](https://bj.lianjia.com/zufang/)",
       "[贝壳 新华联家园小区](https://bj.ke.com/xiaoqu/)"
-    ]
+    ],
+    "hiddenRisks": {
+      "heating": "central",
+      "utility": "residential",
+      "isRelocation": true,
+      "note": "通州早期开发，部分楼栋有回迁户混住，夜间噪音投诉相对集中"
+    }
   },
   {
     "id": "comm_008",
@@ -857,7 +896,12 @@
     "sources": [
       "[房天下 泛海国际](https://esf.fang.com/loupan/1010141863.htm)",
       "[安居客 朝阳公园/泛海](https://bj.zu.anjuke.com/fangyuan/chaoyang-q-chaoyanggongyuan/)"
-    ]
+    ],
+    "hiddenRisks": {
+      "heating": "central",
+      "utility": "residential",
+      "isRelocation": false
+    }
   },
   {
     "id": "comm_009",
@@ -870,14 +914,14 @@
     },
     "buildYear": 2005,
     "buildingType": "板楼/LOFT",
-    "totalRating": 4.0,
+    "totalRating": 4,
     "subscores": {
       "noise": 3.4,
       "soundproof": 3.6,
-      "property": 3.0,
+      "property": 3,
       "safety": 3.8,
       "amenity": 4.3,
-      "valueForMoney": 4.0
+      "valueForMoney": 4
     },
     "pros": [
       {
@@ -964,7 +1008,13 @@
     "sources": [
       "[房天下 苹果社区](https://www.fang.com/xiaoqu/bj-1010033654/)",
       "[安居客 苹果社区南区](https://www.anjuke.com/beijing/cm76242/)"
-    ]
+    ],
+    "hiddenRisks": {
+      "heating": "central",
+      "utility": "commercial",
+      "isRelocation": false,
+      "note": "LOFT 户型按商业产权登记，水电按商用计价"
+    }
   },
   {
     "id": "comm_010",
@@ -982,7 +1032,7 @@
       "noise": 3.8,
       "soundproof": 3.4,
       "property": 3.5,
-      "safety": 4.0,
+      "safety": 4,
       "amenity": 4.4,
       "valueForMoney": 4.1
     },
@@ -1071,6 +1121,11 @@
     "sources": [
       "[安居客 安慧北里秀园](https://mobile.anjuke.com/esf/bj-cm148484/)",
       "[安居客 安慧北里安园](https://mobile.anjuke.com/esf/bj-cm61322/)"
-    ]
+    ],
+    "hiddenRisks": {
+      "heating": "central",
+      "utility": "residential",
+      "isRelocation": false
+    }
   }
 ]

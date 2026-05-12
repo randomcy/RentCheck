@@ -33,7 +33,12 @@ import {
   computeHoldoutAccuracy,
   type ChoiceRecord,
 } from "@/lib/conjoint-v2/core";
-import { useConjointV2Store } from "@/store/conjointV2";
+import {
+  useConjointV2Store,
+  DEFAULT_HARD_CONSTRAINTS,
+  type HardConstraints,
+} from "@/store/conjointV2";
+import { HardConstraintsBlock } from "@/components/quiz/HardConstraints";
 import { usePreferenceStore } from "@/store/preference";
 import type { PreferenceResult, AttributeWeight } from "@/types";
 
@@ -46,6 +51,8 @@ interface Step1Props {
   toggleSelect: (id: string) => void;
   idealProfile: Profile;
   setIdealLevel: (attrId: string, levelIdx: number) => void;
+  hardConstraints: HardConstraints;
+  setHardConstraints: (hc: HardConstraints) => void;
   onNext: () => void;
 }
 
@@ -54,6 +61,8 @@ function StepSelection({
   toggleSelect,
   idealProfile,
   setIdealLevel,
+  hardConstraints,
+  setHardConstraints,
   onNext,
 }: Step1Props) {
   const canProceed = selectedIds.size >= MIN_SELECTED;
@@ -65,10 +74,17 @@ function StepSelection({
           先告诉我，你最在乎哪几件事
         </h2>
         <p className="text-muted-foreground text-sm md:text-base">
-          从下面 12 个维度里勾选 <span className="font-semibold text-foreground">{MIN_SELECTED}-{MAX_SELECTED} 个</span> 你最关心的，
-          并选出每个维度上你最理想的样子。我们会基于此为你定制 12 道选择题。
+          该测试分两部分：先设定你「绝对不让步的硬筛选」，再从 12 个维度里勾选
+          <span className="font-semibold text-foreground mx-1">{MIN_SELECTED}-{MAX_SELECTED} 个</span>
+          可权衡的偏好。我们会基此生成 12 道选择题。
         </p>
       </div>
+
+      {/* 硬筛选模块 */}
+      <HardConstraintsBlock
+        value={hardConstraints}
+        onChange={setHardConstraints}
+      />
 
       {/* 勾选进度 */}
       <div className="mb-5 flex items-center justify-between text-sm">
@@ -318,6 +334,9 @@ export default function QuizPage() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(
     () => new Set(ATTRIBUTES_V2.filter((a) => a.defaultSelected).map((a) => a.id))
   );
+  const [hardConstraints, setHardConstraints] = useState<HardConstraints>(
+    DEFAULT_HARD_CONSTRAINTS
+  );
   const [idealProfile, setIdealProfile] = useState<Profile>(() => {
     // 默认每个维度的理想 = levels 的最后一项（即"好"的方向）
     const p: Profile = {};
@@ -409,6 +428,7 @@ export default function QuizPage() {
       idealProfile,
       tasks,
       choices: newChoices,
+      hardConstraints,
     });
 
     // 同步一份析跳脚到老 store，供社区页 MatchBanner 继续使用
@@ -483,6 +503,8 @@ export default function QuizPage() {
           toggleSelect={toggleSelect}
           idealProfile={idealProfile}
           setIdealLevel={setIdealLevel}
+          hardConstraints={hardConstraints}
+          setHardConstraints={setHardConstraints}
           onNext={handleStartChoice}
         />
       ) : (

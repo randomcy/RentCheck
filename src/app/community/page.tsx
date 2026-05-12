@@ -221,6 +221,54 @@ export default function CommunityIndexPage() {
                       {c.buildYear} · {c.buildingType}
                     </div>
                   </div>
+
+                  {/* 隐形硬伤提示（仅在有负面信号时显示） */}
+                  {c.hiddenRisks && (
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {c.hiddenRisks.utility === "commercial" && (
+                        <Badge
+                          variant="outline"
+                          className="text-[10px] border-rose-200 text-rose-600 bg-rose-50/40"
+                        >
+                          ⚠ 商水商电
+                        </Badge>
+                      )}
+                      {c.hiddenRisks.heating === "self" && (
+                        <Badge
+                          variant="outline"
+                          className="text-[10px] border-amber-200 text-amber-700 bg-amber-50/40"
+                        >
+                          ⚠ 自采暖
+                        </Badge>
+                      )}
+                      {c.hiddenRisks.heating === "none" && (
+                        <Badge
+                          variant="outline"
+                          className="text-[10px] border-rose-200 text-rose-600 bg-rose-50/40"
+                        >
+                          ⚠ 无供暖
+                        </Badge>
+                      )}
+                      {c.hiddenRisks.isRelocation && (
+                        <Badge
+                          variant="outline"
+                          className="text-[10px] border-amber-200 text-amber-700 bg-amber-50/40"
+                        >
+                          ⚠ 含回迁房
+                        </Badge>
+                      )}
+                      {c.hiddenRisks.utility === "residential" &&
+                        c.hiddenRisks.heating === "central" &&
+                        !c.hiddenRisks.isRelocation && (
+                          <Badge
+                            variant="outline"
+                            className="text-[10px] border-emerald-200 text-emerald-700 bg-emerald-50/40"
+                          >
+                            ✓ 集中供暖 · 民电
+                          </Badge>
+                        )}
+                    </div>
+                  )}
                 </div>
               </Card>
             </Link>

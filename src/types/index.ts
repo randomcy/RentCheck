@@ -35,6 +35,21 @@ export interface ProsCons {
   evidence?: string[];
 }
 
+/**
+ * 隐形硬伤标签（产品差异化核心 — 现有租房平台普遍缺失这三个维度）
+ * 来源：北京年轻人租房真实痛点调研（牛客/小宇宙/掘金/界面新闻 2024-2025）
+ */
+export interface HiddenRisks {
+  /** 供暖方式：集中（市政统一供暖）/ 自采暖（自己烧）/ 无供暖（南方做法，冬天危险） */
+  heating: "central" | "self" | "none";
+  /** 水电类型：民用价 / 商用价（月费用差 300-800 元） */
+  utility: "residential" | "commercial";
+  /** 回迁房风险：邻居素质参差，是噪音/纠纷投诉高发地 */
+  isRelocation: boolean;
+  /** 额外说明（可选） */
+  note?: string;
+}
+
 export interface Community {
   id: string;
   name: string;
@@ -50,6 +65,8 @@ export interface Community {
   suitableFor: string[];
   notSuitableFor: string[];
   postIds: string[];
+  /** 隐形硬伤标签（可选 — 仅部分小区有数据） */
+  hiddenRisks?: HiddenRisks;
 }
 
 // ===== Post =====

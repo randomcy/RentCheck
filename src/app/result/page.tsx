@@ -19,9 +19,14 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
-import { useConjointV2Store, type ConjointV2Result } from "@/store/conjointV2";
+import {
+  useConjointV2Store,
+  DEFAULT_HARD_CONSTRAINTS,
+  type ConjointV2Result,
+} from "@/store/conjointV2";
 import { findAttr } from "@/lib/conjoint-v2/attributes";
 import { AntiBrokerWidget } from "@/components/result/AntiBrokerWidget";
+import { ChecklistCard } from "@/components/result/ChecklistCard";
 
 // ============================================================
 // CompareResult 还是 mock（Phase 2 实现）
@@ -268,7 +273,13 @@ function ConjointReport({ result }: { result: ConjointV2Result }) {
         </Card>
       )}
 
-      {/* 4. 自然语言解读 */}
+      {/* 4. 看房避坑清单（actionable 下游） */}
+      <ChecklistCard
+        importance={result.importance}
+        hardConstraints={result.hardConstraints ?? DEFAULT_HARD_CONSTRAINTS}
+      />
+
+      {/* 5. 自然语言解读 */}
       <Card className="p-6 mb-6 bg-brand-red-pale/40 border-brand-red/10">
         <h3 className="font-bold mb-3 flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-brand-red-deep" />

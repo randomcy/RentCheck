@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CommunityRadar } from "@/components/community/CommunityRadar";
 import { MatchBanner } from "@/components/community/MatchBanner";
 import { CommunityInteractive } from "@/components/community/CommunityInteractive";
+import { HiddenRisksCard } from "@/components/community/HiddenRisksCard";
 import {
   Star,
   ChevronLeft,
@@ -157,6 +158,9 @@ export default function CommunityPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </Card>
+
+      {/* ===== 隐形硬伤识别（产品差异化核心 — 供暖/水电/回迁房）===== */}
+      {community.hiddenRisks && <HiddenRisksCard risks={community.hiddenRisks} />}
 
       {/* ===== 偏好匹配条幅（核心串联 Feature1 → Feature3）===== */}
       <MatchBanner community={community} />

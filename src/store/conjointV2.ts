@@ -11,6 +11,35 @@ import type {
   WTPItem,
 } from "@/lib/conjoint-v2/core";
 
+/**
+ * Hard Constraints — 用户的「绝对不让步」条件
+ * 不参与 CBC 权衡，作为用于后续房源/小区过滤的硬筛选
+ * 设计依据：产品反思 §2.1 · CBC 方法论的最大硬伤
+ */
+export interface HardConstraints {
+  /** 月租金上限（元，0 代表不设） */
+  budgetMax: number;
+  /** 必须民水民电 */
+  requireResidentialUtility: boolean;
+  /** 必须集中供暖 */
+  requireCentralHeating: boolean;
+  /** 必须独立卫生间 */
+  requirePrivateBath: boolean;
+  /** 拒绝隔断间 */
+  rejectPartition: boolean;
+  /** 拒绝回迁房 */
+  rejectRelocation: boolean;
+}
+
+export const DEFAULT_HARD_CONSTRAINTS: HardConstraints = {
+  budgetMax: 0,
+  requireResidentialUtility: false,
+  requireCentralHeating: false,
+  requirePrivateBath: false,
+  rejectPartition: false,
+  rejectRelocation: false,
+};
+
 export interface ConjointV2Result {
   selectedAttrIds: string[];
   partWorths: PartWorth[];
@@ -26,6 +55,8 @@ export interface ConjointV2Result {
   tasks: ChoiceTask[];
   /** 每道题用户选了第几个 alt（taskId → chosen index） */
   choices: Record<number, number>;
+  /** 硬筛选条件（不参与 CBC 权衡） */
+  hardConstraints: HardConstraints;
 }
 
 interface State {
