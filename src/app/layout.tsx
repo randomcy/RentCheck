@@ -5,7 +5,7 @@ import { Navbar } from "@/components/Navbar";
 export const metadata: Metadata = {
   title: "租房雷达 · 帮年轻人租到真正适合自己的房子",
   description:
-    "用 Conjoint Analysis 反推你的隐性偏好，结合通勤地图和真实居住声音，告诉你哪个小区才是你的菜。",
+    "用偏好测试反推你真正在意的事，结合通勤地图和真实居住声音，告诉你哪个小区才是你的菜。",
   keywords: ["北京租房", "租房偏好测试", "通勤地图", "小区评价"],
 };
 

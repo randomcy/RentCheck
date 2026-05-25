@@ -129,7 +129,7 @@ function QuizResult() {
       <div className="py-20 text-center">
         <h2 className="text-2xl font-bold mb-3">还没有偏好画像</h2>
         <p className="text-muted-foreground mb-6">
-          完成 12 道租房选择题，我们就能告诉你最在乎什么
+          完成 6 道租房选择题，我们就能告诉你最在乎什么
         </p>
         <Button asChild size="lg">
           <Link href="/quiz">开始租房偏好测试</Link>
