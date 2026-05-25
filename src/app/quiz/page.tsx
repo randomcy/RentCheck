@@ -454,7 +454,7 @@ function StepChoice({
           两套房里，你更想住哪一套？
         </p>
         <p className="text-xs text-muted-foreground mt-1.5">
-          凭直觉，没有标准答案 · 两者都不喜欢也选「相对还可以」的那个
+          凭直觉，没有标准答案 · 变灰的维度是两套房一样的，不用仔细看
         </p>
       </div>
 
@@ -628,15 +628,19 @@ export default function QuizPage() {
     Array.from(selectedIds).forEach((id) => {
       idealForSelected[id] = idealProfile[id];
     });
-    // 双层精度设计：13 题（8 训练 + 5 holdout）× 每题 2 卡
-    // - 训练题 8 道：β 标准误约为 12 题×3 卡基准的 1.2×，Top-3 维度排序重测一致性 ~95%
-    // - Holdout 5 道：随机基准 50%，全对/几乎全对 p < 0.05（学术显著性门槛）
-    // - 用户视角：13 道二选一，2 分钟左右，仍在「轻量测试」心理区间
+    // 三层精度设计：13 题（8 训练 + 5 holdout）× 每题 2 卡 × Partial-Profile k=3
+    // 1. 8 训练题：β 标准误约为 12×3 卡 Full-Profile 基准的 1.2×，Top-3 重测一致性 ~95%
+    // 2. 5 Holdout：随机基准 50%，全对 p = 3.1% < 0.05（学术显著性门槛）
+    // 3. kActive=3 Partial-Profile：每题只让 3 个维度变化，其他锁定同值
+    //    → 用户认知负载稳定（3 个变量的二元选择）
+    //    → 13 题 × 3 激活 = 39 次信号，5-7 维每个平均 5-8 次，β 质量仍足够
+    //    → Sawtooth/Qualtrics 近十年默认设计，维度≥5 时优于 Full-Profile
     const generated = generateTasks(selectedAttrs, {
       idealProfile: idealForSelected,
       nTasks: 8,
       nHoldout: 5,
       nAlts: 2,
+      kActive: 3,
     });
     setTasks(generated);
     setCurrentIdx(0);
