@@ -75,7 +75,7 @@ export default function FiltersPage() {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-foreground">
-            已完成 8 道偏好题 · 最后 1 步
+            已完成 13 道偏好题 · 最后 1 步
           </span>
           <span className="text-xs text-muted-foreground">90%</span>
         </div>

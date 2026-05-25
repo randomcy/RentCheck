@@ -54,7 +54,7 @@ export default function HomePage() {
                 </div>
                 <div className="text-xl font-bold mb-1.5">2 分钟租房偏好测试</div>
                 <div className="text-sm text-white/85 leading-relaxed mb-4">
-                  8 道虚构房源选择题,反推你说不清的隐性偏好。
+                  13 道虚构房源二选一,反推你说不清的隐性偏好。
                 </div>
                 <div className="inline-flex items-center gap-1 text-sm font-medium">
                   开始测试 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />

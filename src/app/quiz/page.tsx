@@ -214,7 +214,7 @@ function StepSelection({
         <div className="leading-relaxed">
           <strong className="text-foreground">为什么这么设计？</strong>
           先让你勾选关心的维度，是为了把后面的选择题压到最少，同时贴近你的真实租房场景。
-          全程 90 秒左右，不会让你做无谓的对比。
+          全程 2 分钟左右，不会让你做无谓的对比。
         </div>
       </div>
     </div>
