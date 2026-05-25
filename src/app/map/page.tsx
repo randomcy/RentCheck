@@ -242,12 +242,13 @@ export default function MapPage() {
             </div>
             <PlaceSearch
               onPick={(p) =>
-                setCompanyA({
+                setCompanyA((prev) => ({
+                  ...prev,
                   id: p.id,
                   name: p.name,
                   lng: p.location.lng,
                   lat: p.location.lat,
-                })
+                }))
               }
               placeholder="搜公司 / 字节跳动 / 你家小区…"
             />
@@ -316,12 +317,23 @@ export default function MapPage() {
               </div>
               <PlaceSearch
                 onPick={(p) =>
-                  setCompanyB({
-                    id: p.id,
-                    name: p.name,
-                    lng: p.location.lng,
-                    lat: p.location.lat,
-                  })
+                  setCompanyB((prev) =>
+                    prev
+                      ? {
+                          ...prev,
+                          id: p.id,
+                          name: p.name,
+                          lng: p.location.lng,
+                          lat: p.location.lat,
+                        }
+                      : {
+                          id: p.id,
+                          name: p.name,
+                          lng: p.location.lng,
+                          lat: p.location.lat,
+                          mode: "subway",
+                        }
+                  )
                 }
                 placeholder="搜对方的公司或学校…"
               />
